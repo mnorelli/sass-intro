@@ -1,0 +1,64 @@
+@import "bootstrap";
+
+$main-color: #2e0;
+
+a {
+    color: #01f;
+    display: block;
+    &:hover {
+        color: #051;
+    }
+    .callout & {
+        color: #f00;
+    }
+}
+
+.jumbotron {
+  background-color: $main-color;
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+.btn {
+    @include border-radius(5px);
+}
+
+@mixin color($bg) {
+    $bg-lightness: lightness($bg);
+    background-color: $bg;
+
+    @if $bg-lightness > 70% { color: #333333; } 
+    @else { color: #ffffff; }
+}
+
+.jumbotron {
+    @include color(#fbc);
+}
+
+
+$em-base: 21px;
+
+@function emCalc($px-width) {
+    @return $px-width / $em-base * 1em;
+}
+
+body {
+    font-size: emCalc(21px);
+}
+
+@function grid-calc($col,$total-col) {
+    @return percentage($col/$total-col);
+}
+
+@function gc($col,$total-col) {
+    @return grid-calc($col,$total-col);
+}
+
+.jumbotron {
+    max-width:gc(11,12);
+}
